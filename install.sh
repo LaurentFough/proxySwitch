@@ -8,8 +8,8 @@ PROXIES=()
 # Proceed only if root privileges
 checkRoot(){
 	if [ $EUID -ne 0 ]; then
-		echo "Do you have proper administration rights? (super-user?)"
-		echo "Root privileges are required."
+		echo "[proxySwitch] Do you have proper administration rights? (super-user?)"
+		echo "[proxySwitch] Root privileges are required."
 		exit
 	else
 		setupProxies
@@ -27,13 +27,13 @@ setupProxies(){
 			sudo mv $DATABASE_LOCATION $DATABASE_LOCATION."bkp"
 		fi
 	fi
-	read -p "How many proxies do you wanna save ? " numOfProxies
+	read -p "[proxySwitch] How many proxies do you wanna save ? " numOfProxies
 	echo "PROXYCOUNT="$numOfProxies > $DATABASE_LOCATION
 	for (( i = 1; i <= $numOfProxies; i++ )); do
 		saveProxyDetails $i
 	done
 	echo "PROXIES=(${PROXIES[@]})" >> $DATABASE_LOCATION
-	Finalise
+	_finalise
 }
 
 ## set up the proxy details of each proxy
@@ -58,14 +58,14 @@ saveProxyDetails(){
 	PROXIES+=($proxyText)
 }
 
-# install the script and display final message
-Finalise(){
+## install the script and display final message
+_finalise(){
 	sudo cp proxyswitch.sh /usr/local/bin/proxyswitch
 	sudo chmod 755 /usr/local/bin/proxyswitch
-	sudo gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1', '*.iitg.ernet.in', '*.iitg.ac.in', '202.141.*.*', '172.16.*.*']"
+	sudo gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1', '202.141.*.*', '172.16.*.*']"
 	echo
-	echo "ProxySwitch installed successfully."
-	echo "Use 'proxyswitch' from terminal to switch proxies."
+	echo "[proxySwitch] ProxySwitch installed successfully."
+	echo "[proxySwitch] Use 'proxyswitch' from terminal to switch proxies."
 }
 
 checkRoot
