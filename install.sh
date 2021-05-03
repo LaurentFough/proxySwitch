@@ -5,8 +5,8 @@ DATABASE_DIR="$HOME/.config/proxyswitch"
 DATABASE_LOCATION="$HOME/.config/proxyswitch/proxyswitchDB.txt"
 PROXIES=()
 
-# Proceed only if root privileges
-checkRoot(){
+## Proceed only if root privileges
+_checkRoot(){
 	if [ $EUID -ne 0 ]; then
 		echo "[proxySwitch] Do you have proper administration rights? (super-user?)"
 		echo "[proxySwitch] Root privileges are required."
@@ -27,7 +27,7 @@ setupProxies(){
 			sudo mv $DATABASE_LOCATION $DATABASE_LOCATION."bkp"
 		fi
 	fi
-	read -p "[proxySwitch] How many proxies do you wanna save ? " numOfProxies
+	read -p "[proxySwitch] How many proxies do you want save ? " numOfProxies
 	echo "PROXYCOUNT="$numOfProxies > $DATABASE_LOCATION
 	for (( i = 1; i <= $numOfProxies; i++ )); do
 		saveProxyDetails $i
@@ -62,10 +62,11 @@ saveProxyDetails(){
 _finalise(){
 	sudo cp proxyswitch.sh /usr/local/bin/proxyswitch
 	sudo chmod 755 /usr/local/bin/proxyswitch
-	sudo gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1', '202.141.*.*', '172.16.*.*']"
+	sudo gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1', '172.16.*.*' '*.lan' '*.local' \
+	'10.0.2.*' '10.0.3.*' '10.0.4.*' '10.0.5.*' '10.0.50.*' '10.0.6.*' '10.0.7.*' '10.0.8.*' '10.0.80.*' '10.0.253.*' '10.0.254.*']"
 	echo
 	echo "[proxySwitch] ProxySwitch installed successfully."
 	echo "[proxySwitch] Use 'proxyswitch' from terminal to switch proxies."
 }
 
-checkRoot
+_checkRoot
