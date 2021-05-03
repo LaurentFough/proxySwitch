@@ -9,7 +9,8 @@
 		- bash
 		- [TODO] zsh
 	- Apt Configuration
-	- [TODO] PacMan
+	- [TODO] Arch|PacMan
+		- REF: [wiki/arch/ Proxy server](https://wiki.archlinux.org/title/Proxy_server#HTTPS_MITM_proxies) 
 	
 2) Only need to save the proxy details once while installing.
 
