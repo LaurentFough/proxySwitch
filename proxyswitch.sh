@@ -4,7 +4,7 @@
 source "$HOME/.config/proxyswitch/proxyDB.txt"
 
 ## Proceed only if root privileges
-checkRoot(){
+_checkRoot(){
 	if [ $EUID -ne 0 ]; then
 		echo "[proxySwitch] Do you have proper administration rights? (super-user?)"
 		echo "[proxySwitch] Root privileges are required."
@@ -15,7 +15,7 @@ checkRoot(){
 	fi
 }
 
-## ask user which proxy he wants to use
+## ask user which proxy they want to use
 proxyChoice(){
 	clear
 	echo "[proxySwitch] You have $PROXYCOUNT saved proxies."
@@ -87,16 +87,11 @@ proxySYS(){
 	proxyPORT=$(sed 's/.*:\(.*\)/\1/' <<< "$proxy")
 
 	sudo gsettings set org.gnome.system.proxy mode 'manual';
-	sudo gsettings set org.gnome.system.proxy.http host $proxyPROXY;
-	sudo gsettings set org.gnome.system.proxy.http port $proxyPORT;
-	sudo gsettings set org.gnome.system.proxy.https host $proxyPROXY
-	sudo gsettings set org.gnome.system.proxy.https port $proxyPORT
-	sudo gsettings set org.gnome.system.proxy.ftp host $proxyPROXY
-	sudo gsettings set org.gnome.system.proxy.ftp port $proxyPORT
-	sudo gsettings set org.gnome.system.proxy.socks host $proxyPROXY
-	sudo gsettings set org.gnome.system.proxy.socks port $proxyPORT
-	sudo gsettings set org.gnome.system.proxy.all host $proxyPROXY
-	sudo gsettings set org.gnome.system.proxy.all port $proxyPORT
+	sudo gsettings set org.gnome.system.proxy.http host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.http port $proxyPORT;
+	sudo gsettings set org.gnome.system.proxy.https host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.https port $proxyPORT
+	sudo gsettings set org.gnome.system.proxy.ftp host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.ftp port $proxyPORT
+	sudo gsettings set org.gnome.system.proxy.socks host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.socks port $proxyPORT
+	sudo gsettings set org.gnome.system.proxy.all host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.all port $proxyPORT
 }
 
 ## set the apt proxy
@@ -182,4 +177,4 @@ newProxy(){
 	setProxy $Proxy
 }
 
-checkRoot
+_checkRoot
