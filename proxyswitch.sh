@@ -88,10 +88,10 @@ proxySYS(){
 
 	sudo gsettings set org.gnome.system.proxy mode 'manual';
 	sudo gsettings set org.gnome.system.proxy.http host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.http port $proxyPORT;
-	sudo gsettings set org.gnome.system.proxy.https host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.https port $proxyPORT
-	sudo gsettings set org.gnome.system.proxy.ftp host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.ftp port $proxyPORT
-	sudo gsettings set org.gnome.system.proxy.socks host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.socks port $proxyPORT
-	sudo gsettings set org.gnome.system.proxy.all host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.all port $proxyPORT
+	sudo gsettings set org.gnome.system.proxy.https host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.https port $proxyPORT;
+	sudo gsettings set org.gnome.system.proxy.ftp host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.ftp port $proxyPORT;
+	sudo gsettings set org.gnome.system.proxy.socks host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.socks port $proxyPORT;
+	sudo gsettings set org.gnome.system.proxy.all host $proxyPROXY && sudo gsettings set org.gnome.system.proxy.all port $proxyPORT;
 }
 
 ## set the apt proxy
@@ -110,8 +110,10 @@ proxyENV(){
 	export http_proxy="http://$proxy/"
 	export https_proxy="https://$proxy/"
 	export socks_proxy="socks://$proxy/"
+	export rsync_proxy="http://$proxy/"
 	export ftp_proxy="ftp://$proxy/"
 	export all_proxy="https://$proxy/"
+	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 }
 
 ## exporting the variables in the bashrc file.
