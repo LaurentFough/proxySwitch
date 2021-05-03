@@ -113,7 +113,7 @@ proxyENV(){
 	export rsync_proxy="http://$proxy/"
 	export ftp_proxy="ftp://$proxy/"
 	export all_proxy="https://$proxy/"
-	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+	export no_proxy="localhost,127.0.0.0/8,localaddress,.localdomain.com.lan,.local"
 }
 
 ## exporting the variables in the bashrc file.
