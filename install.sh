@@ -1,24 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-# Some global variables
-DATABASE_DIR="$HOME/.proxyswitch"
-DATABASE_LOCATION="$HOME/.proxyswitch/proxyDB.txt"
+## Some global variables
+DATABASE_DIR="$HOME/.config/proxyswitch"
+DATABASE_LOCATION="$HOME/.config/proxyswitch/proxyswitchDB.txt"
 PROXIES=()
 
 # Proceed only if root privileges
-CheckRoot(){
+checkRoot(){
 	if [ $EUID -ne 0 ]; then
 		echo "Do you have proper administration rights? (super-user?)"
 		echo "Root privileges are required."
 		exit
 	else
-		SetupProxies
+		setupProxies
 		return 0
 	fi
 }
 
-# setup the proxy database location
-SetupProxies(){
+## setup the proxy database location
+setupProxies(){
 	if [[ ! -d $DATABASE_DIR ]]; then
 		sudo mkdir $DATABASE_DIR
 		if [[ ! -f $DATABASE_LOCATION ]]; then
@@ -30,32 +30,32 @@ SetupProxies(){
 	read -p "How many proxies do you wanna save ? " numOfProxies
 	echo "PROXYCOUNT="$numOfProxies > $DATABASE_LOCATION
 	for (( i = 1; i <= $numOfProxies; i++ )); do
-		SaveProxyDetails $i
+		saveProxyDetails $i
 	done
 	echo "PROXIES=(${PROXIES[@]})" >> $DATABASE_LOCATION
 	Finalise
 }
 
-#set up the proxy details of each proxy
-SaveProxyDetails(){
+## set up the proxy details of each proxy
+saveProxyDetails(){
 	echo
-	echo "Enter Details for proxy #$1"
-	read -p "Enter Proxy (e.g. 202.141.80.24) : " proxy
-	read -p "Enter Proxy Port (e.g. 3128) : " proxyPort
-	read -p "Use proxy Authentication? (Y/N) : " -n 1 response
+	echo "[proxySwitch] Enter Details for proxy #$1"
+	read -p "[proxySwitch] Enter Proxy (e.g. 202.141.80.24) : " proxy
+	read -p "[proxySwitch] Enter Proxy Port (e.g. 3128) : " proxyPort
+	read -p "[proxySwitch] Use proxy Authentication? (Y/N) : " -n 1 response
 	echo
 	case $response in
 		y|Y)
-			echo "Enter you proxy Authentication"
-			read -p "Enter username : " -r proxyUsername
-			read -p "Enter Password : " -r proxyPassword
-			ProxyText=$proxyUsername":"$proxyPassword"@"$proxy":"$proxyPort
+			echo "[proxySwitch] Enter you proxy Authentication"
+			read -p "[proxySwitch] Enter username : " -r proxyUsername
+			read -p "[proxySwitch] Enter Password : " -r proxyPassword
+			proxyText=$proxyUsername":"$proxyPassword"@"$proxy":"$proxyPort
 			;;
 		*)	
-			ProxyText=$proxy":"$proxyPort
+			proxyText=$proxy":"$proxyPort
 			;;
 	esac
-	PROXIES+=($ProxyText)
+	PROXIES+=($proxyText)
 }
 
 # install the script and display final message
@@ -68,4 +68,4 @@ Finalise(){
 	echo "Use 'proxyswitch' from terminal to switch proxies."
 }
 
-CheckRoot
+checkRoot
