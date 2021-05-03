@@ -2,27 +2,25 @@
 
 
 ## Features
-1) Changes proxy in the following :
+1) Changes proxy in the following locations:
 		
 	- Settings Menu
-
 	- Environment Variables
-
 	- Apt Configuration
+	- [TODO] PacMan
 	
 2) Only need to save the proxy details once while installing.
 
-3) Can also a proxy which was not saved during the installation.
+3) Can also use a proxy which was not saved during the installation.
 
-4) You can use "None" Proxy as well.
+4) You can use "No" Proxy as well.
 
 ## How To Install
-
-	git clone https://github.com/roopansh/proxyswitch
-
-	cd proxyswitch
-
+```sh
+	git clone https://github.com/LaurentFough/proxySwitch
+	cd proxySwitch
 	bash install.sh
+```
 
 **NOTE : Root priviledges will be required.**
 
@@ -34,16 +32,12 @@ Save the proxies that you commonly use and have to switch between frequently.
 ## How To Use
 
 Use the following command from anywhere in the terminal
+> `$ proxyswitch`
 
-
-	proxyswitch
-
-
-It'll display you saved proxies and you can chose from them.
+It'll display your saved proxies and you can choose from there.
 
 ## How To Uninstall
-
-	bash uninstall.sh
+> `$ bash uninstall.sh`
 
 **Please raise an issue if you are not happy with something before uninstalling**
 
