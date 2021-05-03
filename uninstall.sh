@@ -14,9 +14,8 @@ checkRoot(){
 
 ## Uninstall
 uninstall(){
-	sudo rm -r $HOME/.config/proxyswitch
-	sudo rm /usr/local/bin/proxyswitch
-
+	sudo rm -r $HOME/.config/proxyswitch && \
+	sudo rm /usr/local/bin/proxyswitch && \
 	echo "[proxySwitch] Uninstall successfull."
 }
 
