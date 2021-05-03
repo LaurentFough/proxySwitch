@@ -6,6 +6,8 @@
 		
 	- Settings Menu
 	- Environment Variables
+		- bash
+		- [TODO] zsh
 	- Apt Configuration
 	- [TODO] PacMan
 	
