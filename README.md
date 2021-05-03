@@ -1,4 +1,4 @@
-# PROXYSWITCH
+# proxySwitch
 
 
 ## Features
